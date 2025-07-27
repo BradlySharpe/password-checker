@@ -1,0 +1,260 @@
+:root {
+    --bg: #11141a;
+    --panel: #1a1f27;
+    --text: #e6e9ef;
+    --muted: #8a90a0;
+    --good: #22c55e;
+    --warn: #facc15;
+    --bad: #ef4444;
+    --bits: #f87171;
+    --accent: #3b82f6;
+    --radius: 10px;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-width: 630px;
+}
+
+.center-container {
+    width: 100%;
+    padding: 2rem;
+    display: block;
+}
+
+.split-container {
+    display: block;
+}
+
+.column {
+    display: block;
+}
+
+.panel {
+    background: var(--panel);
+    border-radius: var(--radius);
+    padding: 2rem;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+.two-column .column,
+.three-column .column {
+    flex: 1;
+}
+
+.header p {
+    margin-top: 0;
+}
+
+canvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    min-width:500px;
+    max-width: 1072px;
+    max-width: 100%;
+    max-height: 400px;
+    height: auto;
+}
+
+.input-wrap {
+    position: relative;
+    margin: 1.25rem 0 0.75rem;
+}
+
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    padding: 0.9rem 3rem 0.9rem 1rem;
+    background: #0f1216;
+    border: 1px solid #2a303a;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    color: var(--text);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.toggle {
+    position: absolute;
+    top: 50%;
+    right: 0.6rem;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+}
+
+small {
+    display: block;
+    color: var(--muted);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+#charTable td:last-child {
+    text-align: right;
+    color: var(--muted);
+}
+
+.icon {
+    font-size: 2rem;
+    width: 4rem;
+}
+
+.ok {
+    color: var(--good);
+}
+
+.warn {
+    color: var(--warn);
+}
+
+.bad {
+    color: var(--bad);
+}
+
+.total {
+    margin-top: 0.6rem;
+    padding-top: 1rem;
+    font-size: 0.9rem;
+    text-align: right;
+    color: var(--muted);
+    border-top: 1px solid #2a303a;
+}
+
+.result h2 {
+    margin: 0 0 1rem;
+}
+
+#verdict,
+#lengthVerdict {
+    margin-bottom: 0.2rem;
+}
+
+#bits,
+#length {
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.info {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.muted {
+    color: var(--muted);
+}
+
+#exposureListTable .bad,
+#exposureListTable .ok,
+#suggestions .ok {
+    font-weight: 700;
+}
+
+ul>li {
+    margin-bottom: 0.5rem;
+}
+
+.last-row {
+    margin-bottom: -2rem;
+}
+
+.panel.full-height {
+    height: auto;
+}
+
+@media (min-width: 821px) {
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .split-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 1.5rem;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.5rem;
+    }
+
+    .panel {
+        height: auto;
+        margin-bottom: 0;
+    }
+
+    .panel.full-height {
+        height: 100%;
+    }
+
+    #containerCanvas {
+        display: inherit;
+    }
+
+    .last-row {
+        margin-bottom: 0;
+    }
+
+    .two-column.last-row {
+        display: block;
+    }
+
+    .two-column.last-row .column:first-child {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .center-container {
+        width: 90%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+        height: auto;
+    }
+
+    .two-column.last-row {
+        display: flex;
+    }
+
+    .two-column.last-row .column:first-child {
+        margin-bottom: 0;
+    }
+}

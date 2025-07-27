@@ -1,3 +1,6 @@
+const THREE_HOURS = 10800; // 3 * 60 * 60
+const TWELVE_DAYS = 1036800; // 12 * 24 * 60 * 60
+
 let app = {
 
     hibpCache: new Map(),
@@ -17,6 +20,7 @@ let app = {
         length: document.getElementById('length'),
         lengthVerdict: document.getElementById('lengthVerdict'),
         lengthWhy: document.getElementById('lengthWhy'),
+        crackTimeVerdict: document.getElementById('crackTimeVerdict'),
         suggestions: document.getElementById('suggestions'),
         radarCanvas: document.getElementById('passwordRadar'),
         canvasContainer: document.getElementById('containerCanvas'),
@@ -376,6 +380,35 @@ let app = {
         this.elements.why.textContent = length > 0 ? explanation : "No password entered";
     },
 
+    capitalizeFirstLetter(val) { 
+        return String(val).charAt(0).toUpperCase() + String(val).slice(1); 
+    },
+
+    updateTimeToCrack(hibp, worst, length, zxcvbn) {
+        if (length <= 0) {
+            this.elements.crackTimeVerdict.textContent = "No password entered";
+            this.elements.crackTimeVerdict.className = 'muted';
+            return;
+        }
+
+        if (zxcvbn.crack_seconds < THREE_HOURS)
+            this.elements.crackTimeVerdict.className = 'bad';
+        else if (zxcvbn.crack_seconds < TWELVE_DAYS)
+            this.elements.crackTimeVerdict.className = 'warn';
+        else 
+            this.elements.crackTimeVerdict.className = 'ok';
+
+        let message = zxcvbn.crack_display;
+
+        if (hibp.found || worst)
+            message = "Instantly";
+
+        if (/^[0-9]/.test(message))
+            message = `~${message}`;
+
+        this.elements.crackTimeVerdict.textContent = this.capitalizeFirstLetter(message);
+    },
+
     updateSuggestions(password, worst, hibp, strength, zxcvbn) {
         if (!password) {
             this.elements.suggestions.innerHTML = `<p class="muted">Enter a password to generate suggestions</p>`;
@@ -406,6 +439,11 @@ let app = {
             suggestions.push(`<li class="warn">This password doesn't meet common complexity requirements, try including a mix of letters, numbers, and symbols</li>`);
         }
 
+        if (zxcvbn.crack_seconds < THREE_HOURS)
+            suggestions.push(`<li class="bad">This password is far too simple and offers almost no protection</li>`);
+        else if (zxcvbn.crack_seconds < TWELVE_DAYS)
+            suggestions.push(`<li class="warn">This password is better than the most basic ones, but still not strong enough</li>`);
+
         suggestions.push(...zxcvbn.feedback.suggestions.map(s => `<li>${s}</li>`));
 
         this.elements.suggestions.innerHTML = suggestions.length > 0 ?
@@ -427,6 +465,7 @@ let app = {
         this.updateExposureList(password, worst, hibp);
         this.updateLengthVerdict(password.length);
         this.updateStrengthVerdict(password.length, strength);
+        this.updateTimeToCrack(hibp, worst, password.length, zxcvbn);
         this.updateSuggestions(password, worst, hibp, strength, zxcvbn);
 
         this.renderRadarChart({ password, worst, hibp, strength, zxcvbn });

@@ -172,31 +172,37 @@ let app = {
     },
 
     async fetchList(url, type) {
-        if (this.worstCache.has(url))
-            return this.worstCache.get(url);
+        try {
+            if (this.worstCache.has(url))
+                return this.worstCache.get(url);
 
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`Fetch list failed: ${res.status}`);
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`Fetch list failed: ${res.status}`);
 
-        const content = type === 'json'
-            ? await res.json()
-            : await res.text();
+            const content = type === 'json'
+                ? await res.json()
+                : await res.text();
 
-        this.worstCache.set(url, content);
+            this.worstCache.set(url, content);
 
-        return content;
+            return content;
+        } catch (ex) {
+            console.error(`Failed to fetch list - ${url}`, ex);
+        }
+
+        return type === 'json' ? [] : '';
     },
 
     async checkWorstPasswords(password) {
         const lists = [
             {
-                url: 'https://corsproxy.io/?url=https://nordpass.com/next/worst-passwords-list/2024/b2b/au.json',
-                category: 'Business Passwords',
+                url: '/nord-pass-worst-password-list-2024-b2b-au.json', // https://nordpass.com/next/worst-passwords-list/2024/b2b/au.json
+                category: 'NordPass Business Passwords',
                 type: 'json'
             },
             {
-                url: 'https://corsproxy.io/?url=https://nordpass.com/next/worst-passwords-list/2024/b2c/au.json',
-                category: 'Consumer Passwords',
+                url: '/nord-pass-worst-password-list-2024-b2c-au.json', // https://nordpass.com/next/worst-passwords-list/2024/b2c/au.json
+                category: 'NordPass Consumer Passwords',
                 type: 'json'
             },
             {

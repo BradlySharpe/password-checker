@@ -238,7 +238,7 @@ let app = {
     },
 
     renderRadarChart({ password, worst, hibp, strength, zxcvbn }) {
-        const RECOMMENDED_PASSWORD_LENGTH = 16;
+        const RECOMMENDED_PASSWORD_LENGTH = 14;
         const MAX_STRENGTH_SCORE = 5;
         const MAX_ZXCVBN_SCORE = 4;
         const MIN_CHARSETS_REQUIRED = 3;

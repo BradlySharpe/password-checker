@@ -359,7 +359,7 @@ let app = {
         this.elements.length.className = cls;
     },
 
-    updateStrengthVerdict(strength) {
+    updateStrengthVerdict(length, strength) {
         const { entropy, explanation } = strength;
         const cls = entropy < 36 ? 'bad' : entropy < 60 ? 'warn' : 'ok';
 
@@ -367,7 +367,7 @@ let app = {
         this.elements.verdict.className = cls;
         this.elements.bits.textContent = `~${entropy} Bits`;
         this.elements.bits.className = `bits ${cls}`;
-        this.elements.why.textContent = explanation || "No password entered";
+        this.elements.why.textContent = length > 0 ? explanation : "No password entered";
     },
 
     updateSuggestions(password, worst, hibp, strength, zxcvbn) {
@@ -420,7 +420,7 @@ let app = {
         this.updateCharsetTable(strength);
         this.updateExposureList(password, worst, hibp);
         this.updateLengthVerdict(password.length);
-        this.updateStrengthVerdict(strength);
+        this.updateStrengthVerdict(password.length, strength);
         this.updateSuggestions(password, worst, hibp, strength, zxcvbn);
 
         this.renderRadarChart({ password, worst, hibp, strength, zxcvbn });

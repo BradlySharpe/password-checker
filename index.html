@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Password Safety Checker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css" integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="https://unpkg.com/text-security@latest/text-security.css">
     <meta name="description" content="Quickly check and improve your passwords. This simple, user-friendly tool helps you understand password strength and avoid common risks like data breaches or weak patterns." />
     <meta name="keywords" content="password checker, password strength, password audit, password tool, data breach check, password safety, secure password, education cyber security" />
 
@@ -50,12 +52,12 @@
             <div class="column"></div>
             <div class="column" style="flex: 4">
                 <div class="panel">
-                    <label for="pwd">Enter a password to start:</label>
+                    <label for="valueToCheck">Enter a password to start:</label>
                     <div class="input-wrap">
-                        <input id="pwd" type="password" autocomplete="new-password" />
+                        <input id="valueToCheck" name="valueToCheck" type="text" autocomplete="off" class="masked" />
                         <span id="toggle" class="toggle">show</span>
                     </div>
-                    <small>This will not be saved or sent anywhere.</small>
+                    <small class="info">This will not be saved or sent anywhere.</small>
                 </div>
             </div>
             <div class="column"></div>
@@ -98,30 +100,37 @@
                                 <td>Space</td>
                                 <td>1 chars</td>
                             </tr>
+                            <tr>
+                                <td class="icon">❌</td>
+                                <td>Other Characters</td>
+                                <td>~100 chars</td>
+                            </tr>
                         </tbody>
                     </table>
-                    <div class="total" id="totalChars">Total possible characters: 0</div>
+                    <div class="info total" id="totalChars">Total possible characters: 0</div>
                 </div>
             </div>
-            <div class="column">
+            <div class="column vertical-stack">
                 <div class="panel result">
                     <h2>Length</h2>
                     <div id="lengthVerdict" class="bad">None</div>
                     <div id="length" class="bad">0 Characters</div>
                     <p class="info" id="lengthWhy">No password entered</p>
+                    <p class="info explain">A minimum of 10 characters is recommended, longer passwords increase entropy.</p>
                 </div>
-                <div class=" panel result">
+                <div class="panel result">
                     <h2>Entropy</h2>
                     <div id="verdict" class="bad">Very Weak</div>
                     <div id="bits" class="bad">~0 Bits</div>
                     <p class="info" id="why">No password entered</p>
+                    <p class="info explain">Entropy is a measure of how hard your password is to guess, higher is better.</p>
                 </div>
             </div>
         </div>
 
         <div class="split-container two-column">
             <div class="column">
-                <div class="panel result full-height">
+                <div class="panel result full-height exposure">
                     <h2>Exposure</h2>
                     <table>
                         <tbody id="exposureListTable">
@@ -141,6 +150,7 @@
                 <div class="panel result full-height">
                     <h2>Time to Crack</h2>
                     <div id="crackTimeVerdict"></div>
+                    <p class="info explain">This is how long it would take a computer to guess your password if there were minimal protections.</p>
                 </div>
             </div>
         </div>

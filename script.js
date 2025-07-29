@@ -598,7 +598,7 @@ let app = {
         }
 
         if (worst) {
-            listItemsHtml += `<li class="bad">This password is not recommended</li>`;
+            listItemsHtml += `<li class="bad">This password is found on common password lists and is not recommended</li>`;
 
             if (!hibp.found)
                 listItemsHtml += `
@@ -609,7 +609,7 @@ let app = {
         }
 
         if (zxcvbn.crack_seconds < THREE_HOURS)
-            listItemsHtml += `<li class="bad">This password is not recommended - it is far too simple and offers almost no protection</li>`;
+            listItemsHtml += `<li class="bad">This password is is far too simple and offers almost no protection</li>`;
 
         const suggestions = this.checkSequences(zxcvbn, password);
 

@@ -486,8 +486,8 @@ let app = {
                             else
                                 errors.add('This is a very common password');
                         }
-                        else if (seq.guesses_log10 <= 4)
-                            warnings.add('This is similar to a commonly used password');
+                        // else if (seq.guesses_log10 <= 4)
+                        //     warnings.add('This is similar to a commonly used password');
 
                         /* if (word.match(START_UPPER))
                             information.add("Capitalisation doesn't help very much");

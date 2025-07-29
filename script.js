@@ -544,7 +544,7 @@ let app = {
                     if (zxcvbn.sequence.some(s => s.pattern == 'date'))
                         break;
                     if (seq.regex_name == 'recent_year') {
-                        warnings.add(`Recent years (like 2023) are common in passwords. Especially avoid years that are connected to you.`);
+                        warnings.add(`Recent years (like 2023) are common in passwords. Especially avoid years that are connected to you, such as birthdays, anniversaries, or other personal dates.`);
                         hasRecentYear = true;
                         addedPatterns.add(seq.pattern);
                     }
@@ -561,10 +561,10 @@ let app = {
         }
 
         if (!hasRecentYear && this.hasRecentYear(password) && !zxcvbn.sequence.some(s => s.pattern == 'date'))
-            warnings.add(`Recent years (like 2023) are common in passwords. Especially avoid years that are connected to you.`);
+            warnings.add(`Recent years, like 2024, are common in passwords. Especially avoid years that are connected to you.`);
 
         if (/^[A-Z][^A-Z]*$/.test(password))
-            warnings.add('Most passwords start with a capital and is easy to guess');
+            warnings.add('Most passwords start with a capital and is an easy pattern to guess');
 
         if (/[^\d]\d+$/.test(password))
             warnings.add('Predictable patterns like trailing numbers make your password easier to crack');

@@ -561,7 +561,7 @@ let app = {
         }
 
         if (!hasRecentYear && this.hasRecentYear(password) && !zxcvbn.sequence.some(s => s.pattern == 'date'))
-            warnings.add(`Recent years, like 2024, are common in passwords. Especially avoid years that are connected to you.`);
+            warnings.add(`Recent years, like 2024, are common in passwords. Especially avoid years that are connected to you, such as birthdays, anniversaries, or other personal dates.`);
 
         if (/^[A-Z][^A-Z]*$/.test(password))
             warnings.add('Most passwords start with a capital and is an easy pattern to guess');
